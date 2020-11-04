@@ -10,6 +10,7 @@ public class Maps {
     public static final String RED = "\033[0;31m";
     public static final String WHITE = "\033[0;37m";
     public static final String GREEN = "\033[0;32m"; 
+    public static final String CYAN = "\033[0;36m";
     ArrayList<Maps> mapArrayList = new ArrayList<>();
     
     static private String[][] usersMap;
@@ -55,6 +56,8 @@ public class Maps {
             printMap();
 
             movePlayer = Input.getUserInputString();
+            
+            usersMap[currentV][currentH] = CYAN + "[*]" + RESET_COLOR;
 
             currentH = isRightOrLeft(movePlayer, currentH);
 
