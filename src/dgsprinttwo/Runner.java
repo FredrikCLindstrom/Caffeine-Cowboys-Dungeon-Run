@@ -5,7 +5,7 @@ import java.awt.EventQueue;//importera denna till eran main
 public class Runner {
 
     public static void main(String[] args) {
-
+        System.out.println("test map branch");
         EventQueue.invokeLater(() -> {
             DGsprintTwo ex = new DGsprintTwo();     // shows image, can be put first in menu
             ex.setVisible(true);
