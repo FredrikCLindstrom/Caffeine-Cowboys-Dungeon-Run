@@ -11,6 +11,7 @@ public class Maps {
     public static final String WHITE = "\033[0;37m";
     public static final String GREEN = "\033[0;32m"; 
     public static final String CYAN = "\033[0;36m";
+    
     ArrayList<Maps> mapArrayList = new ArrayList<>();
     
     static private String[][] usersMap;
@@ -198,7 +199,7 @@ public class Maps {
         return currentV;
     }
 
-    public static int startingHorisontell(int UserChoiceOfMap, int cornerChoice) {
+    public static int startingHorisontell(int UserChoiceOfMap, int cornerChoice) {//change these to 1 function
         int currentH = 0;
 
         switch (UserChoiceOfMap) {
@@ -369,7 +370,7 @@ public class Maps {
         return vRandExit;
     }
     
-    public static int horisontellRandomNumberGenExit(){
+    public static int horisontellRandomNumberGenExit(){//change to 1 method isnted of dos
         int highestPossibleNr=usersMap.length-1;
         Random rand = new Random();
         int hRandExit=rand.nextInt(highestPossibleNr)+1;
