@@ -1,4 +1,4 @@
-package dungeonrun;/*
+package dgsprinttwo;/*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
@@ -12,17 +12,17 @@ import java.util.Scanner;
  * @author alexa
  */
 public class DungeonRun {
-    public static ArrayList<Player>players= new ArrayList<>();
-    public static Audio a = new Audio();
+    public static ArrayList<Heroes>players= new ArrayList<>();
+    //public static Audio a = new Audio();
 
     public static String name="";
 
-    //public static Knight k = new Knight(name,tresure);
-    //public static Wizard w = new Wizard(name,tresure);
-    //public static Thief t = new Thief(name,tresure);
+    public static Knight k = new Knight(name, 0);
+    public static Wizard w = new Wizard(name, 0);
+    public static Thief t = new Thief(name, 0);
 
 
-    GameBoardRunner gBoRu=new GameBoardRunner(players,name);
+  
 
     public static Scanner scan = new Scanner(System.in);
     public static boolean loop=true;
@@ -39,7 +39,7 @@ public class DungeonRun {
 
     
     public static void main(String[] args) {
-      a.playMusic("");
+      //a.playMusic("");
        welcomeText();
        while(loop){
            menuOne(menuOneText());
