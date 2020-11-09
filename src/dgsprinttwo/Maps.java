@@ -301,12 +301,14 @@ public class Maps {
 
             usersMap[currentV][currentH] = RED + "[*]" + RESET_COLOR;
 
+        }else if (movePlayer.equalsIgnoreCase("m")){
+            Menus.walkingMenu();
         }
-
+        
     }
 
     public static void walkTheMapFirstText() {
-        System.out.println("You are located at the entrance, use W,A,S,D to move around the map");
+        System.out.println("You are located at the entrance, use W,A,S,D to move around the map, or press M to menu");
     }
 
     public static int RandomNumberGenExit() {
