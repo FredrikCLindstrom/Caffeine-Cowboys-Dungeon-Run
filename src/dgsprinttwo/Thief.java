@@ -5,8 +5,8 @@ package dgsprinttwo;
 public class Thief extends Heroes{
    
     
-  public Thief(String name) {
-        super(name);
+  public Thief(String name, int skatter) {
+        super(name, skatter);
         initiativ = 6;
         talighet = 4;
         attack = 9;

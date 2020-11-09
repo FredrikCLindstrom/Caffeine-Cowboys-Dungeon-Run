@@ -12,8 +12,9 @@ public class Heroes {
     protected int attack;
     protected int smidighet;
     protected String name;
+    protected int skatter;
     
-    public Heroes(String name) {
+    public Heroes(String name, int skatter) {
 
    
         this.name = name;
@@ -54,9 +55,16 @@ public class Heroes {
         return talighet;
     }
 
-   public void Stats(){
-       //return Stats();
-   }
+    public int getSkatter() {
+        return skatter;
+    }
+
+    public void setSkatter(int skatter) {
+        this.skatter = skatter;
+    }
+
+    
+
 
 
 
