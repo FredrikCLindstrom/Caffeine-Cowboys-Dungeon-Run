@@ -1,7 +1,5 @@
 package dgsprinttwo;
 
-
-import java.util.ArrayList;
 import java.util.Random;
 
 public class Maps {
@@ -9,73 +7,85 @@ public class Maps {
     public static final String RESET_COLOR = "\033[0;30m";
     public static final String RED = "\033[0;31m";
     public static final String WHITE = "\033[0;37m";
-    public static final String GREEN = "\033[0;32m"; 
+    public static final String GREEN = "\033[0;32m";
     public static final String CYAN = "\033[0;36m";
-    
-    ArrayList<Maps> mapArrayList = new ArrayList<>();
-    
-    static private String[][] usersMap;
-    
+    public static final String YELLOW = "\033[0;33m";      
+    public static final String BLUE = "\033[0;34m"; 
+
+    static int verticalRandom;
+    static int horisontellRandom;
+
+    static String[][] usersMap;
+
+    static int[] verticalArray = new int[300];
+    static int[] horisontellArray = new int[300];
+    static int roomCounter = 0;
+
     public static void runMap() {
-        boolean quitGame=true;
-        boolean quitGameToMainMenu=false;
+        boolean quitGame = true;
+        boolean quitGameToMainMenu = false;
         int userChoiceOfMap;
         int cornerChoice;
         int currentV;
         int currentH;
-        int verticalRandom;
-        int horisontellRandom;
+
         String movePlayer;
-        
-        do{
+        setArraysToNegativeOne(verticalArray);
+        setArraysToNegativeOne(horisontellArray);
 
-        userChoiceOfMap = chooseSizeOfMap();
-        
-        quitGameToMainMenu=quitToMainMenuChecker(userChoiceOfMap);
-        
-        if(quitGameToMainMenu==true){
-            continue;
-        }
-
-        cornerChoice = CornerChoiceMethod();
-
-        createANewMap(userChoiceOfMap);
-
-        currentV = startingVertical(userChoiceOfMap, cornerChoice);
-
-        currentH = startingHorisontell(userChoiceOfMap, cornerChoice);
-
-        mapCreationIterative(currentV, currentH);
-        
-        verticalRandom=verticalRandomNumberGenExit();
-            
-        horisontellRandom=horisontellRandomNumberGenExit();
-
-        walkTheMapFirstText();
         do {
+
+            userChoiceOfMap = chooseSizeOfMap();
+
+            quitGameToMainMenu = quitToMainMenuChecker(userChoiceOfMap);
+
+            if (quitGameToMainMenu == true) {
+                continue;
+            }
+
+            cornerChoice = CornerChoiceMethod();
+
+            createANewMap(userChoiceOfMap);
+
+            currentV = startingVertical(userChoiceOfMap, cornerChoice);
+
+            currentH = startingHorisontell(userChoiceOfMap, cornerChoice);
+
+            mapCreationIterative(currentV, currentH);
+
+            verticalRandom = RandomNumberGenExit();
+
+            horisontellRandom = RandomNumberGenExit();
+
+            walkTheMapFirstText();
 
             printMap();
 
-            movePlayer = Input.getUserInputString();
-            
-            usersMap[currentV][currentH] = CYAN + "[*]" + RESET_COLOR;
+            do {
 
-            currentH = isRightOrLeft(movePlayer, currentH);
+                roomMemoryAdder(currentV, currentH);
 
-            currentV = isUpOrDown(movePlayer, currentV);
+                movePlayer = Input.getUserInputString();
 
-            arrMethodChangePlaces(movePlayer, currentV, currentH);
-            
-            System.out.println("random v = "+verticalRandom+"random h = "+horisontellRandom);
-            
-            quitGame=exitFound(verticalRandom, horisontellRandom, currentV, currentH);
+                usersMap[currentV][currentH] = CYAN + "[*]" + RESET_COLOR;
 
-        } while (quitGame==false);
-        
-        }while(quitGameToMainMenu==false);
+                currentH = isRightOrLeft(movePlayer, currentH);
+
+                currentV = isUpOrDown(movePlayer, currentV);
+
+                arrMethodChangePlaces(movePlayer, currentV, currentH);
+
+                checkIfhasBeenInRoom(currentV, currentH);
+
+                quitGame = Rooms.decideToExitOrNot(currentV, currentH, verticalRandom, horisontellRandom);
+
+                //quitGame=exitFound(verticalRandom, horisontellRandom, startingVertical, currentH);
+            } while (quitGame == false);
+
+        } while (quitGameToMainMenu == false);
 
     } //this method contains all other methods, easier to integrate
-                                                // to main method, just call runMap(); and everything should run
+    // to main method, just call runMap(); and everything should run
 
     public static int chooseSizeOfMap() {
         boolean isValidChoice;
@@ -98,7 +108,7 @@ public class Maps {
                 System.out.println("Please choose between [1],[2] and [3]");
                 isValidChoice = false;
             }
-           
+
         } while (isValidChoice == false);
 
         return userChoiceOfMap;
@@ -132,71 +142,44 @@ public class Maps {
 
     public static void createANewMap(int userChoiceOfMap) {
 
-        
-
         switch (userChoiceOfMap) {
             case 1:
                 String[][] arrMapSmall = new String[4][4];
-                usersMap= arrMapSmall;
-            break;
+                usersMap = arrMapSmall;
+                break;
             case 2:
                 String[][] arrMapMedium = new String[5][5];
-                usersMap= arrMapMedium;
-            break;
+                usersMap = arrMapMedium;
+                break;
             case 3:
                 String[][] arrMapLarge = new String[6][6];
-                usersMap= arrMapLarge;
-            break;
-            
-                
+                usersMap = arrMapLarge;
+                break;
+
         }
     }
 
-    public static int startingVertical(int UserChoiceOfMap, int cornerChoice) {
-        int currentV = 0;
+    public static int startingVertical(int UserChoiceOfMap, int cornerChoice) {//TODO change to turnery
+        int startingVertical = 0;
 
         switch (UserChoiceOfMap) {
             case 1:
+                startingVertical = cornerChoice == 1 || cornerChoice == 2 ? 0 : 3;
 
-                if (cornerChoice == 1) {
-                    currentV = 0;
-                } else if (cornerChoice == 2) {
-                    currentV = 0;
-                } else if (cornerChoice == 3) {
-                    currentV = 3;
-                } else if (cornerChoice == 4) {
-                    currentV = 3;
-                }
                 break;
 
             case 2:
+                startingVertical = cornerChoice == 1 || cornerChoice == 2 ? 0 : 4;
 
-                if (cornerChoice == 1) {
-                    currentV = 0;
-                } else if (cornerChoice == 2) {
-                    currentV = 0;
-                } else if (cornerChoice == 3) {
-                    currentV = 4;
-                } else if (cornerChoice == 4) {
-                    currentV = 4;
-                }
                 break;
             case 3:
+                startingVertical = cornerChoice == 1 || cornerChoice == 2 ? 0 : 5;
 
-                if (cornerChoice == 1) {
-                    currentV = 0;
-                } else if (cornerChoice == 2) {
-                    currentV = 0;
-                } else if (cornerChoice == 3) {
-                    currentV = 5;
-                } else if (cornerChoice == 4) {
-                    currentV = 5;
-                }
                 break;
 
         }
 
-        return currentV;
+        return startingVertical;
     }
 
     public static int startingHorisontell(int UserChoiceOfMap, int cornerChoice) {//change these to 1 function
@@ -204,41 +187,17 @@ public class Maps {
 
         switch (UserChoiceOfMap) {
             case 1:
+                currentH = cornerChoice == 1 || cornerChoice == 3 ? 0 : 3;
 
-                if (cornerChoice == 1) {
-                    currentH = 0;
-                } else if (cornerChoice == 2) {
-                    currentH = 3;
-                } else if (cornerChoice == 3) {
-                    currentH = 0;
-                } else if (cornerChoice == 4) {
-                    currentH = 3;
-                }
                 break;
 
             case 2:
+                currentH = cornerChoice == 1 || cornerChoice == 3 ? 0 : 4;
 
-                if (cornerChoice == 1) {
-                    currentH = 0;
-                } else if (cornerChoice == 2) {
-                    currentH = 4;
-                } else if (cornerChoice == 3) {
-                    currentH = 0;
-                } else if (cornerChoice == 4) {
-                    currentH = 4;
-                }
                 break;
             case 3:
+                currentH = cornerChoice == 1 || cornerChoice == 3 ? 0 : 5;
 
-                if (cornerChoice == 1) {
-                    currentH = 0;
-                } else if (cornerChoice == 2) {
-                    currentH = 5;
-                } else if (cornerChoice == 3) {
-                    currentH = 0;
-                } else if (cornerChoice == 4) {
-                    currentH = 5;
-                }
                 break;
 
         }
@@ -246,7 +205,7 @@ public class Maps {
         return currentH;
     }
 
-    public static void mapCreationIterative( int currentV, int currentH) {
+    public static void mapCreationIterative(int currentV, int currentH) {
 
         for (int i = 0; i < usersMap.length; i++) {
 
@@ -255,7 +214,7 @@ public class Maps {
                 usersMap[i][j] = "[X]";
 
             }
-
+            System.out.println("");
         }
         usersMap[currentV][currentH] = RED + "[*]" + RESET_COLOR;
 
@@ -263,6 +222,7 @@ public class Maps {
 
     public static void printMap() {
 
+        Rooms.makeExitGreenIfFound(verticalRandom, horisontellRandom);
         for (int i = 0; i < usersMap.length; i++) {
 
             for (int j = 0; j < usersMap.length; j++) {
@@ -273,6 +233,9 @@ public class Maps {
 
             System.out.println();
         }
+        System.out.println("------------------------------------------------");
+        System.out.println("vExit " + verticalRandom + " hExit " + horisontellRandom);           // kommentera bort dessa 3 rader om det ej ska visas vart utgången är
+        System.out.println("------------------------------------------------");
     }
 
     public static int isRightOrLeft(String movePlayer, int currentH) {
@@ -281,18 +244,18 @@ public class Maps {
             if (currentH < newRoomSize - 1) {
                 currentH++;
             } else {
-                System.out.println(RED+"-**--**--**--**--**--**-"+RESET_COLOR);
-                System.out.println(RED +"  du kan ej gå höger" + RESET_COLOR);
-                System.out.println(RED+"-**--**--**--**--**--**-"+RESET_COLOR);
+                System.out.println(RED + "-**--**--**--**--**--**-" + RESET_COLOR);
+                System.out.println(RED + "  You can NOT go right" + RESET_COLOR);
+                System.out.println(RED + "-**--**--**--**--**--**-" + RESET_COLOR);
             }
 
         } else if (movePlayer.equalsIgnoreCase("A")) {
             if (currentH > 0) {
                 currentH--;
             } else {
-                System.out.println(RED+"-**--**--**--**--**--**-"+RESET_COLOR);
-                System.out.println(RED + "  du kan ej gå vänster" + RESET_COLOR);
-                System.out.println(RED+"-**--**--**--**--**--**-"+RESET_COLOR);
+                System.out.println(RED + "-**--**--**--**--**--**-" + RESET_COLOR);
+                System.out.println(RED + "  You can NOT go left" + RESET_COLOR);
+                System.out.println(RED + "-**--**--**--**--**--**-" + RESET_COLOR);
             }
         }
         return currentH;
@@ -304,17 +267,17 @@ public class Maps {
             if (currentV > 0) {
                 currentV--;
             } else {
-                System.out.println(RED+"-**--**--**--**--**--**-"+RESET_COLOR);
-                System.out.println(RED +"   du kan ej gå upp" + RESET_COLOR);
-                System.out.println(RED+"-**--**--**--**--**--**-"+RESET_COLOR);
+                System.out.println(RED + "-**--**--**--**--**--**-" + RESET_COLOR);
+                System.out.println(RED + "   You can NOT go up" + RESET_COLOR);
+                System.out.println(RED + "-**--**--**--**--**--**-" + RESET_COLOR);
             }
         } else if (movePlayer.equalsIgnoreCase("S")) {
             if (currentV < newRoomSize - 1) {
                 currentV++;
             } else {
-                System.out.println(RED+"-**--**--**--**--**--**-"+RESET_COLOR);
-                System.out.println(RED + "  du kan ej gå ner" + RESET_COLOR);
-                System.out.println(RED+"-**--**--**--**--**--**-"+RESET_COLOR);
+                System.out.println(RED + "-**--**--**--**--**--**-" + RESET_COLOR);
+                System.out.println(RED + "  You can NOT go down" + RESET_COLOR);
+                System.out.println(RED + "-**--**--**--**--**--**-" + RESET_COLOR);
             }
         }
         return currentV;
@@ -324,95 +287,108 @@ public class Maps {
 
         if (movePlayer.equalsIgnoreCase("d")) {
 
-            //arr[currentV][currentH--] = WHITE+"[*]"+RESET_COLOR;
             usersMap[currentV][currentH] = RED + "[*]" + RESET_COLOR;
-            //arr[currentV][currentH--] = WHITE+"[*]"+RESET_COLOR;
-            //arr[currentV][currentH--] = RED+"[*]"+RESET_COLOR;
-            //arr[currentV][currentH] = WHITE+"[*]"+RESET_COLOR; 
 
         } else if (movePlayer.equalsIgnoreCase("s")) {
 
-            //arr[currentV--][currentH] = WHITE+"[*]"+RESET_COLOR; 
             usersMap[currentV][currentH] = RED + "[*]" + RESET_COLOR;
-            //arr[currentV--][currentH] = WHITE+"[*]"+RESET_COLOR; 
-            //arr[currentV--][currentH] = RED+"[*]"+RESET_COLOR; 
-            //arr[currentV][currentH] = WHITE+"[*]"+RESET_COLOR; 
 
         } else if (movePlayer.equalsIgnoreCase("a")) {
 
-            //arr[currentV][currentH++] =WHITE+ "[*]"+RESET_COLOR;
             usersMap[currentV][currentH] = RED + "[*]" + RESET_COLOR;
-            //arr[currentV][currentH++] =WHITE+ "[*]"+RESET_COLOR;
-            //arr[currentV][currentH++] =RED+ "[*]"+RESET_COLOR;
-            //arr[currentV][currentH] = WHITE+"[*]"+RESET_COLOR;
 
         } else if (movePlayer.equalsIgnoreCase("w")) {
 
-            //arr[currentV++][currentH] =WHITE+ "[*]"+RESET_COLOR;
             usersMap[currentV][currentH] = RED + "[*]" + RESET_COLOR;
-            //arr[currentV++][currentH] =WHITE+ "[*]"+RESET_COLOR; 
-            //arr[currentV++][currentH] =RED+ "[*]"+RESET_COLOR;
-            //arr[currentV][currentH] = WHITE+"[*]"+RESET_COLOR;
 
         }
 
-       
     }
 
     public static void walkTheMapFirstText() {
         System.out.println("You are located at the entrance, use W,A,S,D to move around the map");
     }
-    
-    public static int verticalRandomNumberGenExit(){
-        int highestPossibleNr=usersMap.length-1;
+
+    public static int RandomNumberGenExit() {
+
         Random rand = new Random();
-        int vRandExit=rand.nextInt(highestPossibleNr)+1;
-        return vRandExit;
+        int numberExit = rand.nextInt(usersMap.length);
+        return numberExit;
     }
-    
-    public static int horisontellRandomNumberGenExit(){//change to 1 method isnted of dos
-        int highestPossibleNr=usersMap.length-1;
-        Random rand = new Random();
-        int hRandExit=rand.nextInt(highestPossibleNr)+1;
-        return hRandExit;
-    }
-    
-    public static boolean exitFound(int verticalRandom, int horisontellRandom, int currentV, int currentH){
+
+    public static boolean exitFound(int verticalRandom, int horisontellRandom, int currentV, int currentH) {
         boolean quitGame = false;
         int userChoice;
-        
-        if(verticalRandom==currentV && horisontellRandom==currentH){
-            System.out.println(GREEN+"-**--**--**--**--**--**-**--**--**-"+RESET_COLOR);
-            System.out.println(GREEN+"You have found come across a door, you can see daylight on  \n"
-                    + GREEN+"the other side, you can exit the door and youll exit the current map.\n"
-                    + GREEN+"Keep playing [1], quit [2]");
-            System.out.println(GREEN+"-**--**--**--**--**--**-**--**--**-"+RESET_COLOR);
-            System.out.println(GREEN+"make your choice: "+RESET_COLOR);
-                    
-            
-            userChoice=Input.getUserInputInt();
-            switch(userChoice){
-                case 1:quitGame=false;
-                    
+
+        if (verticalRandom == currentV && horisontellRandom == currentH) {
+            System.out.println(GREEN + "-**--**--**--**--**--**-**--**--**-" + RESET_COLOR);
+            System.out.println(GREEN + "You have come across a door, you can see daylight on  \n"
+                    + GREEN + "the other side, you can exit the door and youll exit the current map.\n"
+                    + GREEN + "Keep playing [1], quit [2]");
+            System.out.println(GREEN + "-**--**--**--**--**--**-**--**--**-" + RESET_COLOR);
+            System.out.println(GREEN + "make your choice: " + RESET_COLOR);
+
+            userChoice = Input.getUserInputInt();
+            switch (userChoice) {
+                case 1:
+                    quitGame = false;
+
                     System.out.println("Alright, lets keep Adventureing!!!");
+                    Maps.printMap();
                     break;
-                case 2:quitGame=true;
+                case 2:
+                    quitGame = true;
                     System.out.println("Coward! ok, lets end it here");
-                break;
+                    setArraysToNegativeOne(verticalArray);
+                    setArraysToNegativeOne(horisontellArray);
+                    break;
             }
         }
         return quitGame;
     }
-    
-    public static boolean quitToMainMenuChecker(int userChoiceOfMap){
+
+    public static boolean quitToMainMenuChecker(int userChoiceOfMap) {
         boolean quitToMainMenu = false;
-        
-        if(userChoiceOfMap==4){
-            quitToMainMenu=true;
+
+        if (userChoiceOfMap == 4) {
+            quitToMainMenu = true;
         }
-        
+
         return quitToMainMenu;
     }
 
-}
+    public static void roomMemoryAdder(int currentV, int currentH) {
 
+        verticalArray[roomCounter] = currentV;
+        horisontellArray[roomCounter] = currentH;
+        roomCounter++;
+    }
+
+    public static void checkIfhasBeenInRoom(int currentV, int currentH) {
+        boolean hasBeenInRoom = false;
+        for (int i = 0; i < verticalArray.length; i++) {
+            if (currentV == verticalArray[i] && currentH == horisontellArray[i]) {
+
+                hasBeenInRoom = true;
+                break;
+            }
+
+        }
+        if (hasBeenInRoom == false) {
+
+            if (Rooms.checkIfAtExit(currentV, currentH, verticalRandom, horisontellRandom) == false) {
+                Rooms.firstTimeInRoom(currentV, currentH);
+            }
+        }
+        Maps.printMap();
+    }
+
+    public static void setArraysToNegativeOne(int arrayinput[]) {
+
+        for (int i = 0; i < arrayinput.length; i++) {
+            arrayinput[i] = -1;
+        }
+        roomCounter = 0;
+    }
+
+}
