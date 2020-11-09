@@ -4,8 +4,8 @@ package dgsprinttwo;
 
 public class Wizard extends Heroes{
    
-  public Wizard(String name) {
-        super(name);
+  public Wizard(String name, int skatter) {
+        super(name, skatter);
         initiativ = 7;
         talighet = 5;
         attack = 5;
