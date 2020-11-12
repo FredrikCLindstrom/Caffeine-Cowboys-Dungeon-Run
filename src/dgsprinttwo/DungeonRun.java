@@ -42,9 +42,9 @@ public class DungeonRun {
 
     
     public static void main(String[] args) {
-           while(mLoop){
-        playMusic("Dungeons Run Game Music.wav");
-           }
+      //while(mLoop){
+     // playMusic("Dungeons Run Game Music.wav");
+     //   }
         
         //a.playMusic("");
        welcomeText();
@@ -126,6 +126,7 @@ public class DungeonRun {
 
             System.out.println("Choose your name!");
             name = scan.nextLine();
+            players.get(0).setName(name);
           System.out.println("Name: "+players.get(0).getName()+" Class:"+players.get(players.size() - 1).toString());
                   //players.get(0).toString());
             System.out.println("Are you sure of your choice? y/n "+Maps.RESET_COLOR);
