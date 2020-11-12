@@ -10,7 +10,7 @@ public class Spider extends Monster{
         talighet = 1;
         attack = 2;
         smidighet = 3;
-
+        name = "Giant Spider";
 
       }
     
