@@ -4,7 +4,7 @@ package dgsprinttwo;
 
 
 
-public class Heroes {
+public class Heroes extends UltimateSuperClass implements inCombatInterface{
     
    
     protected int initiativ;
@@ -13,6 +13,25 @@ public class Heroes {
     protected int smidighet;
     protected String name;
     protected int skatter;
+    protected int dicesTotal;
+    
+    @Override
+    public String printStatsOfCombaters() {
+        return getName();
+    }
+    
+    @Override
+    public int getTotalDicesInterf() {
+        return getDicesTotal();
+    }
+
+    public int getDicesTotal() {
+        return dicesTotal;
+    }
+
+    public void setDicesTotal(int dicesTotal) {
+        this.dicesTotal = dicesTotal;
+    }
     
     public Heroes(String name, int skatter) {
 
@@ -59,16 +78,23 @@ public class Heroes {
     public int getSkatter() {
         return skatter;
     }
+    
+    public int addSkatter(int t){
+       skatter = skatter +t;
+       return skatter;
+        
+    }
 
     public void setSkatter(int skatter) {
         this.skatter = skatter;
     }
 
-    public int addSkatter(int t){
-       skatter = skatter +t;
-       return skatter;
-       
+
+    public void setTalighet(int talighet) {
+        this.talighet = talighet;
     }
+
+
     
     
       

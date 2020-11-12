@@ -1,11 +1,14 @@
 package dgsprinttwo;
 
+import java.util.ArrayList;
 import java.util.Random;
+import sun.audio.AudioPlayer;
 
 public class randomGenerator {
 
     static Random rand = new Random();
-
+    static ArrayList<Monster>monsterListForCombat=new ArrayList<>();
+    
     public static int treasuresGenRun() {
         int howManyTreasurePoints = 0;
         howManyTreasurePoints = looseChange();
@@ -17,14 +20,40 @@ public class randomGenerator {
         return howManyTreasurePoints;
     }
 
-    public static int monstersGenRun() {
-        int HowManyMonsters = 0;
-        HowManyMonsters = giantSpider();
-        HowManyMonsters = HowManyMonsters + skelleton();
-        HowManyMonsters = HowManyMonsters + orc();
-        HowManyMonsters = HowManyMonsters + troll();
+
+    public static void monstersGenRun() {
         
-        return HowManyMonsters;
+        //int HowManyMonsters = 0;
+        int orcs = 0;
+        int giantSpider=0;
+        int skelleton=0;
+        int troll=0;
+        giantSpider = giantSpider();
+        skelleton=skelleton();
+        orcs = orc();
+        troll=troll();
+        
+        
+            if(orcs>0){
+                Monster newOrc = new Orc();
+                monsterListForCombat.add(newOrc);
+            }
+            if(giantSpider>0){
+                Monster newGiantSpider = new Spider();
+                monsterListForCombat.add(newGiantSpider);
+            }
+            if(skelleton>0){
+                Monster newSkelleton = new Skelett();
+                monsterListForCombat.add(newSkelleton);
+            }
+            if(troll>0){
+                Monster newTroll = new Troll();
+                monsterListForCombat.add(newTroll);
+            }
+        
+
+        
+
     }
 
     public static int looseChange() {
@@ -33,8 +62,10 @@ public class randomGenerator {
         if (randomNr < 8) {
             System.out.println(Maps.YELLOW+"Loose change found, 2 points"+Maps.RESET_COLOR);
             howManyTreasurePoints = 2;
+
             
            
+
         }
         return howManyTreasurePoints;
     }

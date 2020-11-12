@@ -1,12 +1,12 @@
-/*
+
 package dgsprinttwo;
+
 
 import java.io.File;
 import java.io.InputStream;
 import javax.sound.sampled.AudioInputStream;
 import javax.sound.sampled.AudioSystem;
 import javax.sound.sampled.Clip;
-
 
 
 public class Audio {
@@ -24,8 +24,9 @@ public class Audio {
             //AudioPlayer.player.start(audios);
         }catch(Exception e){
             System.out.println("Error");
-            System.out.println(e);
+
         }
         
     }
-}*/
+}
+

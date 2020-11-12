@@ -10,8 +10,8 @@ package dgsprinttwo;
         talighet = 2;
         attack = 3;
         smidighet = 3;
-
-     
+        name = "Orc";
+        
       }
     
     
