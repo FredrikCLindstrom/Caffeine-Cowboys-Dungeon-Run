@@ -13,7 +13,7 @@ public class randomGenerator {
         howManyTreasurePoints = howManyTreasurePoints + goldJewelry();
         howManyTreasurePoints = howManyTreasurePoints + preciousStone();
         howManyTreasurePoints = howManyTreasurePoints + smallTreasureChest();
-
+        DungeonRun.players.get(0).addSkatter(howManyTreasurePoints);
         return howManyTreasurePoints;
     }
 
@@ -23,7 +23,7 @@ public class randomGenerator {
         HowManyMonsters = HowManyMonsters + skelleton();
         HowManyMonsters = HowManyMonsters + orc();
         HowManyMonsters = HowManyMonsters + troll();
-
+        
         return HowManyMonsters;
     }
 
@@ -33,7 +33,8 @@ public class randomGenerator {
         if (randomNr < 8) {
             System.out.println(Maps.YELLOW+"Loose change found, 2 points"+Maps.RESET_COLOR);
             howManyTreasurePoints = 2;
-            //ScoreCard.setPoints 2+
+            
+           
         }
         return howManyTreasurePoints;
     }
@@ -44,7 +45,7 @@ public class randomGenerator {
         if (randomNr > 7 && randomNr < 12) {
             System.out.println(Maps.YELLOW+"Money bag found, 6 points"+Maps.RESET_COLOR);
             howManyTreasurePoints = 6;
-            //ScoreCard.setPoints 6+ 
+    
         }
         return howManyTreasurePoints;
     }
@@ -55,7 +56,7 @@ public class randomGenerator {
         if (randomNr > 11 && randomNr < 15) {
             System.out.println(Maps.YELLOW+"Gold Jewelry found, 10 points"+Maps.RESET_COLOR);
             howManyTreasurePoints = 10;
-            //ScoreCard.setPoints 10+ 
+          
         }
         return howManyTreasurePoints;
     }
@@ -66,7 +67,7 @@ public class randomGenerator {
         if (randomNr > 14 && randomNr < 17) {
             System.out.println(Maps.YELLOW+"A Precious Stone found, 14 points"+Maps.RESET_COLOR);
             howManyTreasurePoints = 14;
-            //ScoreCard.setPoints 14+ 
+      
         }
         return howManyTreasurePoints;
     }
@@ -77,7 +78,7 @@ public class randomGenerator {
         if (randomNr > 18) {
             System.out.println(Maps.YELLOW+"JACKPOT!!! A Small Treasurechest is found, 20 points"+Maps.RESET_COLOR);
             howManyTreasurePoints = 20;
-            //ScoreCard.setPoints 20+ 
+           
         }
         return howManyTreasurePoints;
     }

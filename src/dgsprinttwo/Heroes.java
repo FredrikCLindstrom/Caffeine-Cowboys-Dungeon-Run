@@ -55,6 +55,7 @@ public class Heroes {
         return talighet;
     }
 
+    
     public int getSkatter() {
         return skatter;
     }
@@ -63,20 +64,27 @@ public class Heroes {
         this.skatter = skatter;
     }
 
+    public int addSkatter(int t){
+       skatter = skatter +t;
+       return skatter;
+       
+    }
     
+    
+      
+               
 
 
-
-
+    
    
      @Override
      public String toString() {
          return
-                 " {initiative=" + initiativ +
-                 ", tålighet=" + talighet +
-                 ", attack=" + attack +
-                 ", smidighet=" + smidighet +
-
+                 " (initiative = " + initiativ +
+                 ", tålighet = " + talighet +
+                 ", attack = " + attack +
+                 ", smidighet = " + smidighet +
+                 ", Poäng = " + skatter +
                  '}';
      }
  }

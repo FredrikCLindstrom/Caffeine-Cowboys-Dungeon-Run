@@ -1,21 +1,28 @@
 
 package dgsprinttwo;
 
-
+import static dgsprinttwo.DungeonRun.players;
+import java.io.File;
+import java.io.InputStream;
+import javax.sound.sampled.AudioInputStream;
+import javax.sound.sampled.AudioSystem;
+import javax.sound.sampled.Clip;
 
 import static dgsprinttwo.Input.RED;
 import static dgsprinttwo.Input.RESET_COLOR;
 import static dgsprinttwo.Input.sc;
+import java.io.FileInputStream;
 import java.util.Scanner;
-
+import sun.audio.AudioPlayer;
+import sun.audio.AudioStream;
 /**
  *
  * @author Melker
  */
 public class Menus {
-
+   // public static Audio a = new Audio();
     public static Scanner sc = new Scanner(System.in);
-
+    public static boolean mLoop = false;
     static String userInput;
     int parseInput = 0;
     boolean runInput = true;
@@ -45,18 +52,19 @@ public class Menus {
     public static void walkingMenu() {
         int userInt;
         System.out.println("-GAME MENU INITIALIZED-");
-        System.out.println("Press 1 for options.");
-        System.out.println("-Press 2 for ");
-        System.out.println("Press 3 for ");
-        System.out.println("-GAME MENU INITIALIZED-");
+        System.out.println("- Press 1 for options.");
+        System.out.println("- Press 2 for Stats ");
+        System.out.println("- Press 3 for killer stats ");
+        System.out.println("- Press 4 for startMenu ");
+        System.out.println("- GAME MENU INITIALIZED-");
         userInt = getUserInputInt();
         if (userInt == 1) {
             optionsMenu();
         } else if (userInt == 2) {
-            
+            System.out.println("Name:"+DungeonRun.players.get(0).getName()+" Class:"+players.get(players.size() - 1).toString());
         } else if (userInt == 3) {
-            
-        } else if (userInt == 4) {
+        }else if(userInt == 4){
+            DungeonRun.menuOneText();
         }
     }
 
@@ -65,9 +73,16 @@ public class Menus {
     }
 
     public static void optionsMenu() {
-
+        String inM;
+       System.out.println("-Music on? press Y/N -"); 
+        inM = Input.getUserInputString();            
+        if(inM.equalsIgnoreCase("y")){
+                mLoop=true;
+            }else if(inM.equalsIgnoreCase("n")){
+               mLoop = false;
     }
-
+        walkingMenu();
+    }
     public static String userInput() {
         String user = null;
         boolean run = true;
@@ -100,4 +115,23 @@ public class Menus {
         return parseInput;
     }
 
+     public static void playMusic (String filepath)
+    {
+       
+      InputStream music;
+     
+      try
+      {
+          music = new FileInputStream(new File(filepath));
+          AudioStream audios= new AudioStream(music);
+          AudioPlayer.player.start(audios);
+      }
+      catch(Exception e)
+      {
+          System.out.println("Error");
+      }
+             
+    
+    }
+    
 }
