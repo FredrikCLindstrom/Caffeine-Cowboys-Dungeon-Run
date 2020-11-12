@@ -122,9 +122,9 @@ public class Menus {
      
       try
       {
-          music = new FileInputStream(new File(filepath));
-          AudioStream audios= new AudioStream(music);
-          AudioPlayer.player.start(audios);
+         music = new FileInputStream(new File(filepath));
+         AudioStream audios= new AudioStream(music);
+         AudioPlayer.player.start(audios);
       }
       catch(Exception e)
       {
