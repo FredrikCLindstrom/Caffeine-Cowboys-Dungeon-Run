@@ -74,6 +74,7 @@ public class Heroes extends UltimateSuperClass implements inCombatInterface{
         return talighet;
     }
 
+    
     public int getSkatter() {
         return skatter;
     }
@@ -88,24 +89,28 @@ public class Heroes extends UltimateSuperClass implements inCombatInterface{
         this.skatter = skatter;
     }
 
+
     public void setTalighet(int talighet) {
         this.talighet = talighet;
     }
 
+
     
+    
+      
+               
 
 
-
-
+    
    
      @Override
      public String toString() {
          return
-                 " {initiative=" + initiativ +
-                 ", tålighet=" + talighet +
-                 ", attack=" + attack +
-                 ", smidighet=" + smidighet +
-
+                 " (initiative = " + initiativ +
+                 ", tålighet = " + talighet +
+                 ", attack = " + attack +
+                 ", smidighet = " + smidighet +
+                 ", Poäng = " + skatter +
                  '}';
      }
  }

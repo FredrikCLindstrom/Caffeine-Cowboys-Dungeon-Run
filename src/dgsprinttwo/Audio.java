@@ -1,4 +1,5 @@
-package dungeonrun;
+
+package dgsprinttwo;
 
 
 import java.io.File;
@@ -7,16 +8,7 @@ import javax.sound.sampled.AudioInputStream;
 import javax.sound.sampled.AudioSystem;
 import javax.sound.sampled.Clip;
 
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 
-/**
- *
- * @author alexa
- */
 public class Audio {
     public static void playMusic(String filePath){
         File musicPath = new File(filePath);
@@ -32,7 +24,9 @@ public class Audio {
             //AudioPlayer.player.start(audios);
         }catch(Exception e){
             System.out.println("Error");
+
         }
         
     }
 }
+
