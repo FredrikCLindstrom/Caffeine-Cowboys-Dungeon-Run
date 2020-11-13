@@ -1,4 +1,3 @@
-
 package dgsprinttwo;
 
 
@@ -12,6 +11,7 @@ public class Wizard extends Heroes{
         smidighet = 7;
 
  
+        
       }
 
 @Override
@@ -27,4 +27,5 @@ public class Wizard extends Heroes{
         return "Wizard"+super.toString();
     }
 }
+
 
