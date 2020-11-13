@@ -6,10 +6,10 @@ package dgsprinttwo;
         
  public Orc() {
         super();
-        initiativ = 4;
-        talighet = 2;
-        attack = 3;
-        smidighet = 3;
+        initiativ = 6;
+        talighet = 3;
+        attack = 4;
+        smidighet = 4;
         name = "Orc";
         
       }
@@ -25,7 +25,6 @@ package dgsprinttwo;
         return "Orc"+super.toString();
     }
 }
-
 
 
 

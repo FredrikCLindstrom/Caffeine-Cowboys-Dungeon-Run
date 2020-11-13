@@ -1,4 +1,3 @@
-
 package dgsprinttwo;
 
 
@@ -7,11 +6,12 @@ public class Wizard extends Heroes{
   public Wizard(String name, int skatter) {
         super(name, skatter);
         initiativ = 7;
-        talighet = 5;
+        talighet = 500;//ta bort 00.
         attack = 5;
         smidighet = 7;
 
  
+        
       }
 
 @Override
@@ -27,4 +27,5 @@ public class Wizard extends Heroes{
         return "Wizard"+super.toString();
     }
 }
+
 

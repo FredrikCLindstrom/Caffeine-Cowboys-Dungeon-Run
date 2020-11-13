@@ -8,7 +8,7 @@ import java.util.Random;
 
 public class Combat {
     
-    static ArrayList<inCombatInterface>combatList =new ArrayList<>();
+    public static ArrayList<inCombatInterface>combatList =new ArrayList<>();
     
     static int [] monsterdices= new int[4];
     
@@ -50,7 +50,7 @@ public class Combat {
         for (int i = 0; i < howManyDices; i++) {
             int randomNumber=randNr.nextInt(6);
             randomNumber++;
-            System.out.println("dice nr "+(i+1)+" result: "+randomNumber);
+            System.out.print(" ["+randomNumber+"] ");
             totalResult=totalResult+randomNumber;
             
         }
@@ -71,15 +71,20 @@ public class Combat {
             
         }
         
+        
         combatList.add(DungeonRun.players.get(0));
         
         combatList.sort(Comparator.comparing(inCombatInterface::getTotalDicesInterf).reversed());
+        randomGenerator.monsterListForCombat.sort(Comparator.comparing(Monster::getDicesTotal).reversed());
         
+        int count=1;
+        System.out.println("*************************************");
         System.out.println("Attack order is as follows...");
         for (inCombatInterface participants: combatList) {
-            System.out.println(participants.printStatsOfCombaters());
+            System.out.println(count+": "+participants.printStatsOfCombaters()+" ");
+            count++;
         }
-        
+        System.out.println("**************************************");
         rollForAttack();
         /*
         randomGenerator.monsterListForCombat.sort(Comparator.comparing(Monster:: getDicesTotal).reversed());
@@ -103,43 +108,129 @@ public class Combat {
     }
     
     public static void rollForAttack(){
+        int totalDeadCount=0;
         
+        while(totalDeadCount<combatList.size()){
+        
+        for (int i = 0; i < combatList.size(); i++) {
+            
+        
+        if(combatList.get(i).getClass().equals(Knight.class)||combatList.get(i).getClass().equals(Wizard.class)||combatList.get(i).getClass().equals(Thief.class)){
+            
 
-        
-        if(combatList.get(0).getClass().equals(Knight.class)||combatList.get(0).getClass().equals(Wizard.class)||combatList.get(0).getClass().equals(Thief.class)){
-            System.out.println("spelare börjar");
-            playerAttacks();
+            totalDeadCount = totalDeadCount+playerAttacks(i);
             //spelare attacker monster
+            
         }
-        if(combatList.get(0).getClass().equals(Skelett.class)||combatList.get(0).getClass().equals(Spider.class)||combatList.get(0).getClass().equals(Troll.class)||combatList.get(0).getClass().equals(Orc.class)){
-            System.out.println("monster börjar");
+        if(combatList.get(i).getClass().equals(Skelett.class)||combatList.get(i).getClass().equals(Spider.class)||combatList.get(i).getClass().equals(Troll.class)||combatList.get(i).getClass().equals(Orc.class)){
+            //System.out.println("monster börjar");
+            monsterAttacks(i);
             //spelare attacker monster
+            
+        }
+        }
         }
                 
-        combatList.clear();
+        //combatList.clear();
     }
     
-    public static void playerAttacks() {
-        Monster monsterArray[] = new Monster[randomGenerator.monsterListForCombat.size()];
-        
-        while (DungeonRun.players.get(0).getTalighet()>0) {
+    public static int playerAttacks(int inputnr) {
+        //Monster monsterArray[] = new Monster[randomGenerator.monsterListForCombat.size()];
+        boolean oneTime = true;
+        int damage = 0;
+        int deadCount=0;
 
-            for (int i = 0; i < monsterArray.length; i++) {
-                monsterArray[i] = randomGenerator.monsterListForCombat.get(i);
-                System.out.println(monsterArray[i]);
-                DungeonRun.players.get(0).setTalighet(DungeonRun.players.get(0).getTalighet()-1);
-                //System.out.println(DungeonRun.players.get(0).getTalighet());
-            }
-            for (int i = 0; i < 10; i++) {
+        while (DungeonRun.players.get(0).getTalighet() > 0 && oneTime == true) {
+            
+            damage = 0;
+
+            for (int i = inputnr; i < randomGenerator.monsterListForCombat.size(); i++) {
+                
+                if(randomGenerator.monsterListForCombat.get(i).getTalighet()>0){
+                System.out.println("dis is player"+randomGenerator.monsterListForCombat.get(i));
+                }
+                
                 
             }
-        }
+            for (int i = 0; i < randomGenerator.monsterListForCombat.size(); i++) {
+                if (randomGenerator.monsterListForCombat.get(i).getTalighet() > 0) {
+                    System.out.println("Press enter to throw dices:");
+                    Input.getUserInputString();
+                    System.out.println(DungeonRun.players.get(0).getName()+" throws dice");// TODO add sound
+                    damage = diceRoll(DungeonRun.players.get(0).getAttack());
+                    if (damage > randomGenerator.monsterListForCombat.get(i).getSmidighet()) {
+                        System.out.println("hit");
+                        randomGenerator.monsterListForCombat.get(i).removeOneLife();
+                        System.out.println(DungeonRun.players.get(0).getName()+" hurts " + randomGenerator.monsterListForCombat.get(i).getName()+" has lives left "+randomGenerator.monsterListForCombat.get(i).getTalighet());
+                    } else {
+                        System.out.println(DungeonRun.players.get(0).getName()+" missed");
+                    }
 
+                }
+
+                if (randomGenerator.monsterListForCombat.get(i).getTalighet() < 1) {
+                    
+                    
+                    System.out.println("you have killed " + randomGenerator.monsterListForCombat.get(i).getName());
+                    System.out.println(Maps.RED+"DEAD "+randomGenerator.monsterListForCombat.get(i)+Maps.RESET_COLOR);
+                    deadCount++;
+                }
+            }
+            oneTime = false;
+        }
+        return deadCount;
     }
     
-    public static void monsterAttacks(){
+    public static void monsterAttacks(int inputnr){
         
-        //todo fill
+        boolean playerIsDead=false;
+        boolean oneTime=true;
+        int damage=0;
+        while (DungeonRun.players.get(0).getTalighet()>0 && oneTime==true) {
+            
+            damage=0;
+            int printCount=0;
+            /*
+            for (int i = 0; i < randomGenerator.monsterListForCombat.size(); i++) {
+                
+                System.out.println("dis"+randomGenerator.monsterListForCombat.get(i));
+                
+            }
+            */
+            for (int i = inputnr; i < randomGenerator.monsterListForCombat.size(); i++) {
+                if(DungeonRun.players.get(0).getTalighet()>0 && randomGenerator.monsterListForCombat.get(i).getTalighet()>0){
+                    System.out.println(randomGenerator.monsterListForCombat.get(i).getName()+" is about to attack, push enter to brace for impact!"); 
+                    Input.getUserInputString();
+                System.out.println(randomGenerator.monsterListForCombat.get(i).getName()+" throws dice");
+                damage=diceRoll(randomGenerator.monsterListForCombat.get(i).getAttack());
+                if(damage>DungeonRun.players.get(0).getSmidighet()){
+                    System.out.println("***** hit, it hurts! *****");
+                    DungeonRun.players.get(0).removeOneLife();
+                System.out.println("Monster removes one life, "+DungeonRun.players.get(0).getName()+" "+DungeonRun.players.get(0).getTalighet()+" lifes left");
+                
+                }
+                else{
+                    System.out.println(randomGenerator.monsterListForCombat.get(i).getName()+" He missed!!!");
+                    
+                }
+                
+                }
+                
+                if(DungeonRun.players.get(0).getTalighet()<1 && randomGenerator.monsterListForCombat.get(i).getTalighet()>0 && printCount<1){
+                    
+                    System.out.println(randomGenerator.monsterListForCombat.get(i).getName()+" have killed you ");
+                    
+                }
+                oneTime=false;
+                break;
+            }
+            
+            
+        }
+        
+        //randomGenerator.monsterListForCombat.clear();
     }
+    
+    
     
 }
