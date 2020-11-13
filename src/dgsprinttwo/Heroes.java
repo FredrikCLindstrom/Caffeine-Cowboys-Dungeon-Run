@@ -105,13 +105,25 @@ public class Heroes extends UltimateSuperClass implements inCombatInterface{
    
      @Override
      public String toString() {
-         return
+          
+                 
+         return "*********************************************" +
+                "\n" + getName() +
+                "\nIntitativ: " + initiativ +
+                "\nTalighet: " + talighet + 
+                "\nAttack: " + attack + 
+                "\nSmidighet: " + smidighet + 
+                "\nPoäng: " + skatter + 
+                "\n*********************************************\n";
+                 
+                 
+                /*  getName() + "\n" +
                  " (initiative = " + initiativ +
                  ", tålighet = " + talighet +
                  ", attack = " + attack +
                  ", smidighet = " + smidighet +
                  ", Poäng = " + skatter +
-                 '}';
+                 '}';*/
      }
  }
 

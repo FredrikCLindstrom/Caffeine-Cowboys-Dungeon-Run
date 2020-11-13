@@ -28,7 +28,13 @@ public class Maps {
         int cornerChoice;
         int currentV;
         int currentH;
-
+      
+       /* if(Menus.mLoop == true){
+     DungeonRun.playMusic("Dungeons Run Game Music.wav");
+       }else{
+           Menus.mLoop = false;
+       }*/
+       
         String movePlayer;
         setArraysToNegativeOne(verticalArray);
         setArraysToNegativeOne(horisontellArray);

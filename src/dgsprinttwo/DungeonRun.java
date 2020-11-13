@@ -4,10 +4,15 @@ package dgsprinttwo;/*
  * and open the template in the editor.
  */
 
-import static dgsprinttwo.Menus.mLoop;
-import static dgsprinttwo.Menus.playMusic;
+//import static dgsprinttwo.Menus.mLoop;
+
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.Scanner;
+import sun.audio.AudioPlayer;
+import sun.audio.AudioStream;
 
 /**
  *
@@ -46,6 +51,7 @@ public class DungeonRun {
      // playMusic("Dungeons Run Game Music.wav");
      //   }
         
+        playMusic("Dungeons Run Intro.wav");
         //a.playMusic("");
        welcomeText();
        while(loop){
@@ -79,7 +85,7 @@ public class DungeonRun {
     public static void menuCharacter(){
         boolean ploop = true;
         while(ploop){
-
+      
         System.out.println(ANSI_YELLOW+"Who would you like to choose as your fighter? ");
         System.out.println("1.Knight");
         System.out.println("2.Wizard");
@@ -88,46 +94,31 @@ public class DungeonRun {
         int in = scan.nextByte();
                  scan.nextLine();
         
-    for (int i = 0; i < 3; i++) {
+   // for (int i = 0; i < 3; i++) {
             if(in==1){
-                Heroes player = new Knight("namn", 0);
+                Heroes player = new Knight(name, 0);
                 players.add(player);
             }
             else if(in==2){
-            Heroes player = new Wizard("namn", 0);
+            Heroes player = new Wizard(name, 0);
            players.add(player);
         }
         else if(in==3){
-            Heroes player = new Thief("namn", 0);
+            Heroes player = new Thief(name, 0);
             players.add(player);
         }    
-    }     
-                 
-                 
-                 
-                 
-                 
-                 /*if(in==1){
-                Heroes k = new Knight("namn", 0);
-                k.setSkatter(0);
-                players.add(k);
-            }
-            else if(in==2){
-           Heroes w = new Wizard("namn", 0);
-           w.setSkatter(0);
-           players.add(w);
-        }
-        else if(in==3){
-            Heroes t = new Thief("namn", 0);
-            t.setSkatter(0);
-            players.add(t);
-        }  */       
+         
+                     
                  
 
             System.out.println("Choose your name!");
             name = scan.nextLine();
-            players.get(0).setName(name);
-          System.out.println("Name: "+players.get(0).getName()+" Class:"+players.get(players.size() - 1).toString());
+            
+
+            players.get(players.size() - 1).setName(name);
+           
+            
+            System.out.println("Class:"+players.get(players.size() - 1).toString());
                   //players.get(0).toString());
             System.out.println("Are you sure of your choice? y/n "+Maps.RESET_COLOR);
             String yeOrNay = scan.nextLine();
@@ -158,19 +149,23 @@ public class DungeonRun {
          int index = 0;
          System.out.println(players.toString());
                System.out.println("Enter first name : " );
-                    String nameSearch = scan.nextLine();
+                    String nameSearch = Input.getUserInputString();
                         
                   for (Heroes player : players) {
                         
                         if(player.getName().equalsIgnoreCase(nameSearch)){
                             index = index + 1;
-                            Maps.runMap();
-                            //System.out.println(player.toString());
                             
-                            break;
+                            System.out.println(player);
+                           
+                           
+                           Maps.runMap();
+                           return;
+                            //break;
                          } else {
                             System.out.println("Hero is not found is not found");
                         }
+                       
                     
                   }
     }
@@ -208,4 +203,23 @@ public class DungeonRun {
         System.out.println("                                                                           ");
     }
     
+    
+         public static void playMusic(String filepath)
+    {
+       
+      InputStream music;
+     
+      try
+      {
+         music = new FileInputStream(new File(filepath));
+         AudioStream audios= new AudioStream(music);
+         AudioPlayer.player.start(audios);
+      }
+      catch(Exception e)
+      {
+          System.out.println("Error");
+      }
+             
+    
+    }
 }

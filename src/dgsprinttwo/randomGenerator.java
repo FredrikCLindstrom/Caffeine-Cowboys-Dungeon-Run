@@ -1,5 +1,7 @@
 package dgsprinttwo;
 
+import static dgsprinttwo.DungeonRun.name;
+import static dgsprinttwo.DungeonRun.players;
 import java.util.ArrayList;
 import java.util.Random;
 import sun.audio.AudioPlayer;
@@ -16,7 +18,7 @@ public class randomGenerator {
         howManyTreasurePoints = howManyTreasurePoints + goldJewelry();
         howManyTreasurePoints = howManyTreasurePoints + preciousStone();
         howManyTreasurePoints = howManyTreasurePoints + smallTreasureChest();
-        DungeonRun.players.get(0).addSkatter(howManyTreasurePoints);
+        players.get(players.size() - 1).addSkatter(howManyTreasurePoints);   
         return howManyTreasurePoints;
     }
 
@@ -60,6 +62,7 @@ public class randomGenerator {
         int randomNr = rand.nextInt(20);
         int howManyTreasurePoints = 0;
         if (randomNr < 8) {
+            DungeonRun.playMusic("Coins.wav");
             System.out.println(Maps.YELLOW+"Loose change found, 2 points"+Maps.RESET_COLOR);
             howManyTreasurePoints = 2;
 
@@ -74,6 +77,7 @@ public class randomGenerator {
         int randomNr = rand.nextInt(20);
         int howManyTreasurePoints = 0;
         if (randomNr > 7 && randomNr < 12) {
+            DungeonRun.playMusic("Coins.wav");
             System.out.println(Maps.YELLOW+"Money bag found, 6 points"+Maps.RESET_COLOR);
             howManyTreasurePoints = 6;
     
@@ -85,6 +89,7 @@ public class randomGenerator {
         int randomNr = rand.nextInt(20);
         int howManyTreasurePoints = 0;
         if (randomNr > 11 && randomNr < 15) {
+            DungeonRun.playMusic("Coins.wav");
             System.out.println(Maps.YELLOW+"Gold Jewelry found, 10 points"+Maps.RESET_COLOR);
             howManyTreasurePoints = 10;
           
@@ -96,6 +101,7 @@ public class randomGenerator {
         int randomNr = rand.nextInt(20);
         int howManyTreasurePoints = 0;
         if (randomNr > 14 && randomNr < 17) {
+            DungeonRun.playMusic("Coins.wav");
             System.out.println(Maps.YELLOW+"A Precious Stone found, 14 points"+Maps.RESET_COLOR);
             howManyTreasurePoints = 14;
       
@@ -107,6 +113,7 @@ public class randomGenerator {
         int randomNr = rand.nextInt(20);
         int howManyTreasurePoints = 0;
         if (randomNr > 18) {
+            DungeonRun.playMusic("Coins.wav");
             System.out.println(Maps.YELLOW+"JACKPOT!!! A Small Treasurechest is found, 20 points"+Maps.RESET_COLOR);
             howManyTreasurePoints = 20;
            
@@ -118,6 +125,7 @@ public class randomGenerator {
         int randomNr = rand.nextInt(20);
         int howManyMonsters = 0;
         if (randomNr < 4) {
+            DungeonRun.playMusic("Monster.wav");
             System.out.println("[Giant Spider] ohhhhhhh, scary");
             //giantSpider.toString();
             howManyMonsters++;
@@ -129,6 +137,7 @@ public class randomGenerator {
         int randomNr = rand.nextInt(20);
         int howManyMonsters = 0;
         if (randomNr > 3 && randomNr < 7) {
+            DungeonRun.playMusic("Monster.wav");
             System.out.println("[Skelleton]!!! oh no");
             //skelleton.toString();
             howManyMonsters++;
@@ -140,6 +149,7 @@ public class randomGenerator {
         int randomNr = rand.nextInt(20);
         int howManyMonsters = 0;
         if (randomNr > 7 && randomNr < 10) {
+            DungeonRun.playMusic("Monster.wav");
             System.out.println("[Orc]! this is not good....");
             //orc.toString();
             howManyMonsters++;
@@ -151,6 +161,7 @@ public class randomGenerator {
         int randomNr = rand.nextInt(20);
         int howManyMonsters = 0;
         if (randomNr > 10 && randomNr < 12) {
+            DungeonRun.playMusic("Monster.wav");
             System.out.println("[Troll], this is NOT a drill!!!!");
             //troll.toString();
             howManyMonsters++;
