@@ -71,6 +71,7 @@ public class Combat {
             
         }
         
+        
         combatList.add(DungeonRun.players.get(0));
         
         combatList.sort(Comparator.comparing(inCombatInterface::getTotalDicesInterf).reversed());
