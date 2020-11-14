@@ -19,6 +19,7 @@ public class Rooms {
                     //call runaway method
                     //runAway = true; = inga skatter
                     randomGenerator.monsterListForCombat.clear();
+                    Combat.combatList.clear();
                     
                     break;
                 case 2:
@@ -26,6 +27,7 @@ public class Rooms {
                     combatRoom(); 
                     Combat.firstCombatMethod();
                     randomGenerator.monsterListForCombat.clear();
+                    Combat.combatList.clear();
                     
                     break;
                 default:

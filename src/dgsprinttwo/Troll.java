@@ -6,10 +6,10 @@ package dgsprinttwo;
         
   public Troll() {
         super();
-        initiativ = 4;
-        talighet = 2;
-        attack = 3;
-        smidighet = 3;
+        initiativ = 2;
+        talighet = 4;
+        attack = 7;
+        smidighet = 2;
         name = "Troll";
    
       }
@@ -20,8 +20,6 @@ package dgsprinttwo;
         return "Troll"+super.toString();
     }
 }
-
-
 
 
 

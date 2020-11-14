@@ -11,6 +11,7 @@ public class Monster extends UltimateSuperClass implements inCombatInterface{
     protected int smidighet;
     protected String name;
     protected int dicesTotal;
+    protected boolean isAlive=true;
 
     @Override
     public String printStatsOfCombaters() {
@@ -63,8 +64,14 @@ public class Monster extends UltimateSuperClass implements inCombatInterface{
         return talighet;
     }
 
+    public void removeOneLife() {
+        int newTalighet=getTalighet()-1;
+        talighet=newTalighet;
+    }
+    
 
 
+    
 
 
    

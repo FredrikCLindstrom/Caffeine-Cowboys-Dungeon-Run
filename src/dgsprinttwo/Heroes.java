@@ -14,6 +14,7 @@ public class Heroes extends UltimateSuperClass implements inCombatInterface{
     protected String name;
     protected int skatter;
     protected int dicesTotal;
+    protected boolean isAlive=true;
     
     @Override
     public String printStatsOfCombaters() {
@@ -98,7 +99,10 @@ public class Heroes extends UltimateSuperClass implements inCombatInterface{
     
     
       
-               
+    public void removeOneLife() {
+        int newTalighet=getTalighet()-1;
+        talighet=newTalighet;
+    }           
 
 
     
