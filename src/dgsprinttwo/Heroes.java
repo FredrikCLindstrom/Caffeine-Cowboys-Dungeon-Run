@@ -15,6 +15,7 @@ public class Heroes extends UltimateSuperClass implements inCombatInterface{
     protected int skatter;
     protected int dicesTotal;
     protected boolean isAlive=true;
+    protected int monsterKills=0;
     
     @Override
     public String printStatsOfCombaters() {
@@ -26,6 +27,16 @@ public class Heroes extends UltimateSuperClass implements inCombatInterface{
         return getDicesTotal();
     }
 
+    public void setIsAlive(boolean isAlive) {
+        this.isAlive = isAlive;
+    }
+
+    public boolean getIsAlive() {
+        return isAlive;
+    }
+
+    
+    
     public int getDicesTotal() {
         return dicesTotal;
     }
@@ -104,7 +115,17 @@ public class Heroes extends UltimateSuperClass implements inCombatInterface{
         talighet=newTalighet;
     }           
 
+    public int getMonsterKills() {
+        return monsterKills;
+    }
 
+    public void setMonsterKills(int monsterKills) {
+        this.monsterKills = monsterKills;
+    }
+
+    public void addMonsterKills(int monsterKills) {
+        this.monsterKills =getMonsterKills()+ monsterKills;
+    }
     
    
      @Override

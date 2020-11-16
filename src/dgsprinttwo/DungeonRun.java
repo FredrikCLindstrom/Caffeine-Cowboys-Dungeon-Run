@@ -25,6 +25,7 @@ public class DungeonRun {
     //public static Audio a = new Audio();
     public static int skatter = 0;
     public static String name="";
+    public static boolean dead = false;
 
     
    /* public static Heroes k = new Knight(name, 0);
@@ -62,13 +63,14 @@ public class DungeonRun {
        
        
     }
-    public static void menuOne(byte in){
+    public static void menuOne(int in){
         switch(in){
             case 1:
                 menuCharacter();
                 break;
             case 2:
                 System.out.println("DungeonRun is a textbased adventuregame.\n How to play:Write your choice and press enter to advance");
+                //saveTextToDoc.highScoresTable();
                 break;
             case 3:
                 
@@ -85,6 +87,7 @@ public class DungeonRun {
 
     }
     public static void menuCharacter(){
+        DungeonRun.dead=false;//tillagd för döden
         boolean ploop = true;
         while(ploop){
       
@@ -93,20 +96,22 @@ public class DungeonRun {
         System.out.println("2.Wizard");
         System.out.println("3.Thief");
         //k.setSkatter(0);
-        int in = scan.nextByte();
-                 scan.nextLine();
+        int in = Input.getUserInputInt();
         
    // for (int i = 0; i < 3; i++) {
             if(in==1){
                 Heroes player = new Knight(name, 0);
+                //players.clear();
                 players.add(player);
             }
             else if(in==2){
             Heroes player = new Wizard(name, 0);
+            //players.clear();
            players.add(player);
         }
         else if(in==3){
             Heroes player = new Thief(name, 0);
+            //players.clear();
             players.add(player);
         }    
          
@@ -115,35 +120,33 @@ public class DungeonRun {
 
             System.out.println("Choose your name!");
             name = scan.nextLine();
-            
 
             players.get(players.size() - 1).setName(name);
-           
-            
-            System.out.println("Class:"+players.get(players.size() - 1).toString());
-                  //players.get(0).toString());
-            System.out.println("Are you sure of your choice? y/n "+Maps.RESET_COLOR);
-            String yeOrNay = scan.nextLine();
-            if(yeOrNay.equalsIgnoreCase("y")){
-                ploop=false;
-            }else if(yeOrNay.equalsIgnoreCase("n")){
+
+            System.out.println("Class:" + players.get(players.size() - 1).toString());
+            //players.get(0).toString());
+            System.out.println("Are you sure of your choice? y/n " + Maps.RESET_COLOR);
+            String yeOrNay = Input.getUserInputString();
+            if (yeOrNay.equalsIgnoreCase("y")) {
+                ploop = false;
+            } else if (yeOrNay.equalsIgnoreCase("n")) {
                 players.remove(0);
             }
-        
 
-            Maps.runMap();
-    }
+        }
+        Maps.runMap();
     }
     
-    public static byte menuOneText(){
+    public static int menuOneText(){
         System.out.println(ANSI_YELLOW+"Choose your option by a number input");
         System.out.println(ANSI_YELLOW+"1.Pick pre generated character");
         System.out.println(ANSI_YELLOW+"2.About the game!");
          System.out.println(ANSI_YELLOW+"3.Resume game");
         System.out.println(ANSI_RED+"4.Exit game");
 
-
-        return scan.nextByte();
+        int choice=Input.getUserInputInt();
+        
+        return choice;
 
         
     }

@@ -8,7 +8,7 @@ public class Thief extends Heroes{
   public Thief(String name, int skatter) {
         super(name, skatter);
         initiativ = 6;
-        talighet = 4;
+        talighet = 4;//ta bort 0an
         attack = 9;
         smidighet = 5;
          
