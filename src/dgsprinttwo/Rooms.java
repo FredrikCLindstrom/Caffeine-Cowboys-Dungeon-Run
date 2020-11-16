@@ -1,5 +1,6 @@
 package dgsprinttwo;
 
+import static dgsprinttwo.randomGenerator.rand;
 import java.util.ArrayList;
 
 public class Rooms {
@@ -7,7 +8,7 @@ public class Rooms {
     static int counter = 0;
 
     public static void runAwayOrFightMethod() {
-        
+        int howMuchTreasurePoints = 0;
         randomGenerator.monstersGenRun();
         
         if (randomGenerator.monsterListForCombat.size()> 0) {
@@ -16,19 +17,23 @@ public class Rooms {
             switch (choice) {
                 case 1:
                     System.out.println("you choose to run");
-                    //call runaway method
-                    //runAway = true; = inga skatter
+                    tryToRunAway();
+                    
                     randomGenerator.monsterListForCombat.clear();
                     Combat.combatList.clear();
                     
                     break;
                 case 2:
                     System.out.println("you choose to fight");
-                    combatRoom(); 
+                    combatRoom();
                     Combat.firstCombatMethod();
                     randomGenerator.monsterListForCombat.clear();
                     Combat.combatList.clear();
-                    
+                    if(DungeonRun.dead==false){
+                    howMuchTreasurePoints = randomGenerator.treasuresGenRun();
+
+                    System.out.println(Maps.YELLOW + "[you collected " + howMuchTreasurePoints + " points]" + Maps.RESET_COLOR);
+                    }
                     break;
                 default:
                     System.out.println("default");
@@ -38,6 +43,9 @@ public class Rooms {
 
         } else {
             System.out.println("No monsters in this room, lucky you");
+            howMuchTreasurePoints = randomGenerator.treasuresGenRun();
+
+            System.out.println(Maps.YELLOW + "[you collected " + howMuchTreasurePoints + " points]" + Maps.RESET_COLOR);
         }
     }
 
@@ -62,11 +70,11 @@ public class Rooms {
         
         runAwayOrFightMethod();
         
-        howMuchTreasurePoints = randomGenerator.treasuresGenRun();
+        //howMuchTreasurePoints = randomGenerator.treasuresGenRun();
 
         
 
-        System.out.println(Maps.YELLOW+"[you collected " + howMuchTreasurePoints + " points]"+Maps.RESET_COLOR);
+        //System.out.println(Maps.YELLOW+"[you collected " + howMuchTreasurePoints + " points]"+Maps.RESET_COLOR);
 
     }
 
@@ -100,5 +108,35 @@ public class Rooms {
     }
     
     
-
+    public static void tryToRunAway(){
+        
+        int smidighet=DungeonRun.players.get(0).getSmidighet()*10;
+        int randomOneToHundred=randomGenerator.rand.nextInt(99);
+        try {
+                        Thread.sleep(1000);
+                    } catch (InterruptedException ex) {
+                        Thread.currentThread().interrupt();
+                    }
+        if(DungeonRun.players.get(0).getClass().equals(Wizard.class)){
+            smidighet=80;
+        }
+        
+        if(randomOneToHundred<smidighet){
+            System.out.println(Maps.GREEN+"********************************"+Maps.RESET_COLOR);
+            System.out.println(Maps.GREEN+" You successfully fled the room"+Maps.RESET_COLOR);
+            System.out.println(Maps.GREEN+"********************************"+Maps.RESET_COLOR);
+            if(DungeonRun.players.get(0).getClass().equals(Wizard.class)){
+                System.out.println("Special ability: Wizard Throws lightning bolt and escapes");
+        }
+        }
+        else{
+            System.out.println(Maps.PURPLE+"<><><><><><><><><><><><><><><><><><>"+Maps.RESET_COLOR);
+            System.out.println(Maps.PURPLE+" You cannot flee, you must fight!!!"+Maps.RESET_COLOR);
+            System.out.println(Maps.PURPLE+"<><><><><><><><><><><><><><><><><><>"+Maps.RESET_COLOR);
+            System.out.println("Ready or not, you have to fight, press enter to continue");
+            Input.getUserInputString();
+            combatRoom(); 
+            Combat.firstCombatMethod();
+        }
+    }
 }

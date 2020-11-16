@@ -62,7 +62,8 @@ public class randomGenerator {
         int randomNr = rand.nextInt(20);
         int howManyTreasurePoints = 0;
         if (randomNr < 8) {
-            DungeonRun.playMusic("Coins.wav");
+            DungeonRun.playMusic("Kaching.wav");
+            //DungeonRun.playMusic("Coins.wav");
             System.out.println(Maps.YELLOW+"Loose change found, 2 points"+Maps.RESET_COLOR);
             howManyTreasurePoints = 2;
 
@@ -77,7 +78,8 @@ public class randomGenerator {
         int randomNr = rand.nextInt(20);
         int howManyTreasurePoints = 0;
         if (randomNr > 7 && randomNr < 12) {
-            DungeonRun.playMusic("Coins.wav");
+            DungeonRun.playMusic("Kaching.wav");
+            //DungeonRun.playMusic("Coins.wav");
             System.out.println(Maps.YELLOW+"Money bag found, 6 points"+Maps.RESET_COLOR);
             howManyTreasurePoints = 6;
     
@@ -89,7 +91,8 @@ public class randomGenerator {
         int randomNr = rand.nextInt(20);
         int howManyTreasurePoints = 0;
         if (randomNr > 11 && randomNr < 15) {
-            DungeonRun.playMusic("Coins.wav");
+            DungeonRun.playMusic("Kaching.wav");
+            //DungeonRun.playMusic("Coins.wav");
             System.out.println(Maps.YELLOW+"Gold Jewelry found, 10 points"+Maps.RESET_COLOR);
             howManyTreasurePoints = 10;
           
@@ -101,6 +104,7 @@ public class randomGenerator {
         int randomNr = rand.nextInt(20);
         int howManyTreasurePoints = 0;
         if (randomNr > 14 && randomNr < 17) {
+            //DungeonRun.playMusic("Kaching.wav");
             DungeonRun.playMusic("Coins.wav");
             System.out.println(Maps.YELLOW+"A Precious Stone found, 14 points"+Maps.RESET_COLOR);
             howManyTreasurePoints = 14;

@@ -36,7 +36,8 @@ public class Monster extends UltimateSuperClass implements inCombatInterface{
     
     public Monster() {
     }
-
+    
+    @Override
     public String getName() {
         return name;
     }
@@ -51,7 +52,7 @@ public class Monster extends UltimateSuperClass implements inCombatInterface{
     public int getInitiativ() {
         return initiativ;
     }
-
+    @Override
     public int getAttack() {
         return attack;
     }
@@ -59,7 +60,8 @@ public class Monster extends UltimateSuperClass implements inCombatInterface{
     public int getSmidighet() {
         return smidighet;
     }
-
+    
+    @Override
     public int getTalighet() {
         return talighet;
     }

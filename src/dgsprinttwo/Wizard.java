@@ -5,10 +5,10 @@ public class Wizard extends Heroes{
    
   public Wizard(String name, int skatter) {
         super(name, skatter);
-        initiativ = 7;
-        talighet = 500;//ta bort 00.
-        attack = 5;
-        smidighet = 7;
+        initiativ = 6;
+        talighet = 4;//ska vara 4
+        attack = 9;
+        smidighet = 5;//
 
  
         

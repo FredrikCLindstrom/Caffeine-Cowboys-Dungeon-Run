@@ -1,5 +1,6 @@
 package dgsprinttwo;
 
+import static dgsprinttwo.DungeonRun.playMusic;
 import java.util.Random;
 
 public class Maps {
@@ -11,19 +12,23 @@ public class Maps {
     public static final String CYAN = "\033[0;36m";
     public static final String YELLOW = "\033[0;33m";      
     public static final String BLUE = "\033[0;34m"; 
+    public static final String PURPLE = "\033[0;35m";       // PURPLE
 
     static int verticalRandom;
     static int horisontellRandom;
 
     static String[][] usersMap;
-
+    static boolean quitGame = false;
+    static boolean quitGameToMainMenu = false;
     static int[] verticalArray = new int[300];
     static int[] horisontellArray = new int[300];
     static int roomCounter = 0;
 
     public static void runMap() {
-        boolean quitGame = true;
-        boolean quitGameToMainMenu = false;
+        //playMusic("Dungeons Run Game Music.wav");
+        //quitGame = false;
+        //quitGameToMainMenu = false;
+        
         int userChoiceOfMap;
         int cornerChoice;
         int currentV;
@@ -86,9 +91,9 @@ public class Maps {
                 quitGame = Rooms.decideToExitOrNot(currentV, currentH, verticalRandom, horisontellRandom);
 
                 //quitGame=exitFound(verticalRandom, horisontellRandom, startingVertical, currentH);
-            } while (quitGame == false);
+            } while (quitGame == false && DungeonRun.dead == false);
 
-        } while (quitGameToMainMenu == false);
+        } while (quitGameToMainMenu == false && DungeonRun.dead == false);
 
     } //this method contains all other methods, easier to integrate
     // to main method, just call runMap(); and everything should run
@@ -329,6 +334,7 @@ public class Maps {
         int userChoice;
 
         if (verticalRandom == currentV && horisontellRandom == currentH) {
+            DungeonRun.playMusic("door.wav");
             System.out.println(GREEN + "-**--**--**--**--**--**-**--**--**-" + RESET_COLOR);
             System.out.println(GREEN + "You have come across a door, you can see daylight on  \n"
                     + GREEN + "the other side, you can exit the door and youll exit the current map.\n"
